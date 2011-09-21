@@ -1,3 +1,5 @@
+# Borrowed from http://github.com/cldwalker/gem_grep
+
 require 'rake'
 require 'fileutils'
 
