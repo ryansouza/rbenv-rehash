@@ -8,3 +8,8 @@ Rubygems plugin to automatically call `rbenv rehash` after un/installing gems.
 * **License**: MIT License
 * **Git Repo**: [github](http://github.com/scoz/rbenv-rehash)
 
+Installation
+------------
+
+`gem install rbenv-rehash`
+
