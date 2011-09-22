@@ -1,12 +1,29 @@
 require 'rubygems'
-require 'rubygems/installer'
-require 'rubygems/specification'
-require 'rbenv-rehash'
+
+module RbenvRehash
+	@do_rehash = false
+
+	def self.queue_rehash
+		@do_rehash = true
+	end
+
+	def self.rehash?
+		if @do_rehash
+			system("rbenv rehash")
+			@do_rehash = false
+			return true
+		end
+
+		return false
+	end
+end
 
 Gem.post_install { |inst|
-	at_exit { RbenvRehash.rehash_at_exit } unless inst.spec.executables.empty?
+	RbenvRehash.queue_rehash unless inst.spec.executables.empty?
 }
 
 Gem.post_uninstall { |uninst|
-	at_exit { RbenvRehash.rehash_at_exit } unless uninst.spec.executables.empty?
+	RbenvRehash.queue_rehash unless uninst.spec.executables.empty?
 }
+
+at_exit { RbenvRehash.rehash? }
