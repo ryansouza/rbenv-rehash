@@ -4,12 +4,12 @@ require 'rake'
 require 'fileutils'
 
 def gemspec
-  @gemspec ||= eval(File.read('.gemspec'), binding, '.gemspec')
+  @gemspec ||= eval(File.read('rbenv-rehash.gemspec'), binding, 'rbenv-rehash.gemspec')
 end
 
 desc "Build the gem"
 task :gem=>:gemspec do
-  sh "gem build .gemspec"
+  sh "gem build rbenv-rehash.gemspec"
   FileUtils.mkdir_p 'pkg'
   FileUtils.mv "#{gemspec.name}-#{gemspec.version}.gem", 'pkg'
 end
